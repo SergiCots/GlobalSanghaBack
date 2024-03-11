@@ -1,7 +1,20 @@
 CREATE TABLE IF NOT EXISTS USERS (
-                                     id INTEGER PRIMARY KEY AUTOINCREMENT,
-                                     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                                     username TEXT NOT NULL UNIQUE,
-                                     email TEXT NOT NULL UNIQUE,
-                                     password TEXT NOT NULL
+     id SERIAL PRIMARY KEY AUTOINCREMENT,
+     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+     username TEXT NOT NULL UNIQUE,
+     email TEXT NOT NULL UNIQUE,
+     password TEXT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS TOOL (
+    id SERIAL PRIMARY KEY AUTOINCREMENT,
+    name VARCHAR(255) NOT NULL,
+    description TEXT,
+    available BOOLEAN DEFAULT TRUE,
+    owner_id INTEGER NOT NULL,
+    status VARCHAR(50),
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_owner
+        FOREIGN KEY(owner_id)
+            REFERENCES USERS(id)
+            ON DELETE SET NULL
 );
