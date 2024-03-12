@@ -27,14 +27,14 @@ public class Tool {
     private Boolean available = true;
 
     @Column(name = "status")
-    private String status; // Estado de la herramienta (nuevo, roto, viejo, para reciclar, etc.)
+    private String status;
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     @ManyToOne
     @JoinColumn(name = "owner_id", referencedColumnName = "id")
-    private User owner; // Relación con la entidad User
+    private User owner;
 
     @PrePersist
     protected void onCreate() {

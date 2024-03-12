@@ -3,6 +3,7 @@ package com.buddhapps.globalsanghaback.controller;
 import com.buddhapps.globalsanghaback.model.Tool;
 import com.buddhapps.globalsanghaback.service.ToolService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,13 +18,24 @@ public class ToolController {
     private ToolService toolService;
 
     @PostMapping("/")
-    public Tool createTool(@RequestBody Tool tool) {
-        return toolService.createTool(tool);
+    public ResponseEntity<Boolean> createTool(@RequestBody Tool tool) {
+        Tool toolSaved = toolService.createTool(tool);
+        if (toolSaved!= null) {
+            return ResponseEntity.ok(true);
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(false);
+        }
     }
+
 
     @GetMapping("/")
     public List<Tool> getAllTools() {
         return toolService.getAllTools();
+    }
+
+    @GetMapping("/user/{id}")
+    public List<Tool> getToolByUser(@PathVariable Long id) {
+        return toolService.getToolsByUser(id);
     }
 
     @GetMapping("/{id}")

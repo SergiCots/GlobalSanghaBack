@@ -21,6 +21,10 @@ public class ToolService {
         return toolRepository.findAll();
     }
 
+    public List<Tool> getToolsByUser(Long id) {
+        return toolRepository.findByOwner_Id(id);
+    }
+
     public Tool getToolById(Long id) {
         return toolRepository.findById(id).orElse(null);
     }
